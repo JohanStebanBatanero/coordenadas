@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertidor de Coordenadas</title>
+    
+    <script>
+        function convertirCartesianasAPolares() {
+            var x = parseFloat(document.getElementById('x').value);
+            var y = parseFloat(document.getElementById('y').value);
+            var r, theta;
+
+            if (!isNaN(x) && !isNaN(y)) {
+                r = Math.sqrt(x * x + y * y);
+                theta = Math.atan2(y, x) * (180 / Math.PI); // Convertir radianes a grados
+                
+                // Mostrar el resultado en la sección de resultados
+                document.getElementById('resultado').textContent = `R: ${r.toFixed(2)}, Theta: ${theta.toFixed(2)}°`;
+            } else {
+                document.getElementById('resultado').textContent = 'Por favor, ingrese valores válidos para X y Y.';
+            }
+        }
+
+        function convertirPolaresACartesianas() {
+            var r = parseFloat(document.getElementById('r').value);
+            var theta = parseFloat(document.getElementById('theta').value);
+            var x, y;
+
+            if (!isNaN(r) && !isNaN(theta)) {
+                var radianes = theta * (Math.PI / 180); // Convertir grados a radianes
+                x = r * Math.cos(radianes);
+                y = r * Math.sin(radianes);
+                
+                // Mostrar el resultado en la sección de resultados
+                document.getElementById('resultado').textContent = `X: ${x.toFixed(2)}, Y: ${y.toFixed(2)}`;
+            } else {
+                document.getElementById('resultado').textContent = 'Por favor, ingrese valores válidos para R y Theta.';
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Convertidor de Coordenadas</h1>
+    
+    <div id="contenedor">
+        <div>
+            <h2>Convertidor de Coordenadas Cartesianas a Polares</h2>
+            <label for="x">X:</label>
+            <input type="number" id="x" step="any" placeholder="X">
+            <br>
+            <label for="y">Y:</label>
+            <input type="number" id="y" step="any" placeholder="Y">
+            <br>
+            <button onclick="convertirCartesianasAPolares()">Convertir a Polares</button>
+        </div>
+        <br>
+        <div>
+            <h2>Convertidor de Coordenadas Polares a Cartesianas</h2>
+            <label for="r">R:</label>
+            <input type="number" id="r" step="any" placeholder="R">
+            <br>
+            <label for="theta">Theta (°):</label>
+            <input type="number" id="theta" step="any" placeholder="Theta">
+            <br>
+            <button onclick="convertirPolaresACartesianas()">Convertir a Cartesianas</button>
+        </div>
+        <br>
+        <div>
+            <h2>Resultados</h2>
+            <p id="resultado"></p>
+        </div>
+    </div>
+</body>
+</html>
